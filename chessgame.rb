@@ -17,9 +17,11 @@ class Chessgame
   def run
     startup
 
-    until winner? || @player1.quitter || @player2.quitter
+    until winner? || @player2.quitter
       begin
         @player1.take_turn(@board)
+        break if @player1.quitter
+
         @player2.take_turn(@board)
       rescue IllegalMove => e
         puts e.message
@@ -40,8 +42,11 @@ class Chessgame
   end
 
   def game_over
-    puts "You quitter." unless winner?
-    puts @board.check_mate?(:white) ? "Black wins!" : "White wins!"
+    if winner?
+      puts @board.check_mate?(:white) ? "Black wins!" : "White wins!"
+    else
+      puts "You quitter."
+    end
   end
 
 end

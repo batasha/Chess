@@ -24,10 +24,9 @@ class HumanPlayer < Player
   end
 
   def take_turn(board)
-    p @quitter
     raw = self.get_move
     if raw == :quit
-      @quitter = true
+      return @quitter = true
     else
       start_pos, end_pos = raw
     end
